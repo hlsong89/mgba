@@ -667,7 +667,7 @@ static void _clearBreakpoint(struct GDBStub* stub, const char* message) {
 		stub->d.p->platform->listWatchpoints(stub->d.p->platform, &stub->d, &watchpoints);
 		for (index = 0; index < mWatchpointListSize(&watchpoints); ++index) {
 			struct mWatchpoint* watchpoint = mWatchpointListGetPointer(&watchpoints, index);
-			if (address >= watchpoint->minAddress && address < watchpoint->maxAddress) {
+			if (address < watchpoint->minAddress && address >= watchpoint->maxAddress) {
 				continue;
 			}
 			stub->d.p->platform->clearBreakpoint(stub->d.p->platform, watchpoint->id);
